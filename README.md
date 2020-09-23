@@ -1,2 +1,0 @@
-# WardrobePlanning
-WardrobePlanning webapp
