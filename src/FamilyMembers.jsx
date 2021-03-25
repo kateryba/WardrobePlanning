@@ -17,7 +17,7 @@ function FamilyMembers(props) {
     function handleCreate() {
         if (wardrobeOwners) {
             let updatedWardrobeOwners = Array.from(wardrobeOwners);
-            console.log('!!!!!!!!!', Array.from(wardrobeOwners), wardrobeOwners.slice(), updatedWardrobeOwners);
+            // Array.from(wardrobeOwners), wardrobeOwners.slice(), updatedWardrobeOwners);
             updatedWardrobeOwners.push({ id: -1, name: '', age: 0, size: 0 });
             setWardrobeOwners(updatedWardrobeOwners);
         }
@@ -28,8 +28,7 @@ function FamilyMembers(props) {
     function getDataUpdate(profileUpdate) {
         if (profileUpdate) {
             let updatedWardrobeOwners = wardrobeOwners.map(wo => {
-                console.debug("Data on update" + JSON.stringify(wo));
-                if ((wo.name === profileUpdate.name) || (wo.id === -1)){
+                if (wo.name === profileUpdate.name){
                     wo = profileUpdate;
                 }
                 return wo;
@@ -38,22 +37,32 @@ function FamilyMembers(props) {
         }
     }
 
-    function handleProfileDelete(id) {
-        let updatedWardrobeOwners = wardrobeOwners.filter(wo => wo.id != id);
+    function handleProfileDelete(idx) {
+        let updatedWardrobeOwners = wardrobeOwners.map((wo, index) => {
+            if (index === idx) {
+                wo = undefined;
+            }
+            return wo;
+        });
         setWardrobeOwners(updatedWardrobeOwners);
-    }
+    };
+  
     if (wardrobeOwners) {
         console.log(wardrobeOwners);
         return (
             <div>
                 <header></header>
                 <div className="container">
-                    {wardrobeOwners.map((wardrobeOwner, index) =>
-                        <MemoFMGeneral key={index} data={wardrobeOwner}
-                            onDelete={handleProfileDelete}
-                            onCreate={handleCreate}
-                            onUpdate={getDataUpdate}
-                        />
+                    {wardrobeOwners.map((wardrobeOwner, index) => {
+                        if (wardrobeOwner !== undefined) {
+                            return <MemoFMGeneral key={index} data={wardrobeOwner}
+                                onDelete={handleProfileDelete}
+                                onCreate={handleCreate}
+                                onUpdate={getDataUpdate}
+                                index={index} 
+                            />;
+                        }
+                    }
                     )}
                     <div>
                         <input className="createProfileButton" type='button' value='Create Family Member'

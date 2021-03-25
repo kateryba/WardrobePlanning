@@ -8,19 +8,19 @@ function WardrobeGeneral(props) {
     const [wishList, setWishList] = useState([]);
     const [currentWardrobe, setCurrentWardrobe] = useState([]);
 
-    function downloadWardrobeData(props) {
-        const fetchingState = useFetch(new ClothesDataQueryParams(), setWardrobeProfile);
+    //function downloadwardrobedata(props) {
+    //    const fetchingstate = usefetch(new clothesdataqueryparams(), setwardrobeprofile);
 
-        if (fetchingState === FetchingState.error) {
-            return <p>error while getting owners list.</p>;
-        }
-        if (fetchingState === FetchingState.loading) {
-            return <span>loading owners...</span>;
-        }
-        else {
-            return (wardrobeProfile);
-        }
-    };
+    //    if (fetchingstate === fetchingstate.error) {
+    //        return <p>error while getting owners list.</p>;
+    //    }
+    //    if (fetchingstate === fetchingstate.loading) {
+    //        return <span>loading owners...</span>;
+    //    }
+    //    else {
+    //        return (wardrobeprofile);
+    //    }
+    //};
 
     if (wardrobeProfile) {
 

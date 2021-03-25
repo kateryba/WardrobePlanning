@@ -13,7 +13,7 @@ function FMViewer(props) {
         try {
             result = await axios.delete(url); // result.status
             if (result.status === 200) {
-                props.onDelete(props.data.id);
+                props.onDelete();
             }
             setSendingState(SendingState.Idle);
         }
@@ -29,9 +29,7 @@ function FMViewer(props) {
     };
     function deleteProfile(e) {
         e.preventDefault();
-        if (props.data.id) {
-            deleteProfileOnServer(props.data.id);
-        }
+        deleteProfileOnServer(props.data.id);
     };
 
     console.log(props.data.id);

@@ -7,6 +7,7 @@ function FMGeneral(props) {
 	const [isViewMode, setIsViewMode] = useState(props.data.id !== -1 ? true : false);
 
 	function handleCancel() {
+		props.onDelete(props.index);
 		setIsViewMode(true);
 	};
 
@@ -17,20 +18,17 @@ function FMGeneral(props) {
 	function handleSave(changedData){
 		setData(changedData);
 		setIsViewMode(true);
-		props.onUpdate(data);
+		props.onUpdate(changedData);
+
 	};
 
-	function deleteProfile(e) {
-		props.onDelete(e);
+	function deleteProfile() {
+		props.onDelete(props.index);
 	}
-
-	//function getidfromserver(){
-
- //   }
 
 	if (isViewMode) {
 		return (
-			<FMViewer data={data} onEdit={handleEdit} onDelete={deleteProfile}/>
+			<FMViewer data={data} onEdit={handleEdit} onDelete={deleteProfile} />
 		);
 	}
 	else {

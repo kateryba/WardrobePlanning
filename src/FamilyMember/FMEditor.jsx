@@ -13,21 +13,21 @@ function FMEditor(props) {
     async function sendDataOnServer(url, data, method) {
         let timeout = setTimeout(() => setSendingState(SendingState.Sending), 1000);
         try {
-                //adding new user
-            if (method === 'post') {
-                let result = await axios.post(url, data);
-                data.id = result.data;
+                //editing existing
+            if (method === 'put') {
+                await axios.put(url, data); // result.status
                 handleSave(data);
             }
-                //editing existing
-            else if (method === 'put') {
-                await axios.put(url, data); // result.status
+                //adding new user
+            else if (method === 'post') {
+                let result = await axios.post(url, data);
+                data.id = result.data;
                 handleSave(data);
             }
             setSendingState(SendingState.Idle);
         }
         catch (error) {
-            console.log("ERROR DURING SENDING ON SERVER");
+            console.log("ERROR DURING SENDING ON SERVER"+JSON.stringify(error));
             setSendingState(SendingState.Error);
         }
         clearTimeout(timeout);
@@ -55,10 +55,11 @@ function FMEditor(props) {
 
     function handleSave(data) {
         props.onSave(data);
+
     }
 
     function handleCancel() {
-        props.onCancel();
+        props.onCancel(props.index);
     }
 
     function validateName(name) {
@@ -91,8 +92,7 @@ function FMEditor(props) {
                     onChange={e => validateSize(e.target.value)} required />
             </label>
             <input type='Button' onClick={handleSubmit} value="Save changes" readOnly/>
-            {(props.data.name && (props.data.age || props.data.size) !== '') ? <input type="Submit" onClick={handleCancel} value="Cancel" readOnly />
-                : <p></p>}
+            <input type="Submit" onClick={handleCancel} value="Cancel" readOnly />
         </form>
     );
 };
