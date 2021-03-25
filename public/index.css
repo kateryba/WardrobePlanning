@@ -1,0 +1,80 @@
+
+/* card design borrowed from W3School https://www.w3schools.com/howto/howto_css_cards.asp */
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    background-color: #61C643;
+    border-radius: 5px; /* 5px rounded corners */
+    margin-left: 20px;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    text-decoration-color: #5700A4;
+    font-family: Verdana;
+    color: #5700A4;
+    padding-top: 10px;
+}
+
+.cardEditing {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    background-color: #61C643;
+    border-radius: 5px;
+    margin: 20px;
+    color: #5700A4;
+    padding: 20px; 
+}
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+    padding: 2px 16px;
+}
+
+.createProfileButton {
+    margin-left: 50px;
+    padding: 5px;
+    background-color: #E09E39;
+    border: solid;
+    border-color: #E8B058;
+    font-weight: bolder;
+}
+/* Add rounded corners to the top left and the top right corner of the image */
+img {
+    border-radius: 5px 5px 0 0;
+}
+
+input {
+    margin: 20px;
+    border-radius: 7px;
+    font-family: Verdana, sans-serif;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-color: #95C821;
+    padding: 2px;
+    background-color: #8BBB1D;
+    color: #5700A4;
+    font-weight: bolder;
+}
+
+header{
+
+}
+
+footer{
+
+}
+
+body {
+    font-family: Garamond serif;
+}
+
+h5 {
+    opacity: 0.4;
+}
+
+h2 {
+    font-style: oblique;
+}
