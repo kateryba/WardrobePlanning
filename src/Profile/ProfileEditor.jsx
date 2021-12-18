@@ -2,13 +2,15 @@ import React, { useState} from 'react';
 import axios from 'axios';
 import SendingState from '../sdk/SendingState';
 
-function FMEditor(props) {
+function ProfileEditor(props) {
 
     const [id, setID] = useState(props.data.id);
-    const [name, setName] = useState(props.data.name);
-    const [age, setAge] = useState(props.data.age);
-    const [size, setSize] = useState(props.data.size);
+    const [name, setName] = useState(props.data.name === '' ? makename(6) : props.data.name);
+    const [age, setAge] = useState(props.data.age === 0 ? 10 : props.data.age);
+    const [size, setSize] = useState(props.data.size === 0 ? 10 : props.data.size);
     const [sendingState, setSendingState] = useState(SendingState.Idle);
+
+    const sizeList = [50, 56, 62, 68, 74, 80, 86, 92, 98, 104, 5, 6, 7, 8, 10, 12, 14, 16, 0];
 
     async function sendDataOnServer(url, data, method) {
         let timeout = setTimeout(() => setSendingState(SendingState.Sending), 1000);
@@ -55,7 +57,6 @@ function FMEditor(props) {
 
     function handleSave(data) {
         props.onSave(data);
-
     }
 
     function handleCancel() {
@@ -72,29 +73,43 @@ function FMEditor(props) {
         setSize(size);
     }
 
+    // 'stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript'
+    function makename(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
     return (
-        <form className="cardEditing">
+        <form className="flex-container, cardEditing">
             <label>
                 Name:
-                <input type='Text' name='name' placeholder={name ? name : 'Name'}
-                    onChange={e => validateName(e.target.value)} required />
+                <input type='Text' name='name' placeholder={name === '' ? 'Name' : name}
+                    onChange={e => validateName(e.target.value)} value={name}/>
             </label>
             <br/>
             <label>
                 Set current age:
-                <input type='Text' name='age' placeholder={age ? age : 'Age'}
-                    onChange={e => validateAge(e.target.value)} required />
+                <input type='number' name='age' min = "0" max = "18" placeholder={age === 0 ? 'Age' : age}
+                    onChange={e => validateAge(e.target.value)} value={age}/>
             </label>
             <br/>
             <label>
                 Set current size:
-                <input type='Text' name='size' placeholder={size ? size : 'Type size'}
-                    onChange={e => validateSize(e.target.value)} required />
+                <select type='Text' name='size' placeholder={size === 0 ? 'Size' : size}
+                    onChange={e => validateSize(e.target.value)} value={size}>
+                    {sizeList.map(size => <option>{size}</option>)}
+                </select>
             </label>
             <input type='Button' onClick={handleSubmit} value="Save changes" readOnly/>
             <input type="Submit" onClick={handleCancel} value="Cancel" readOnly />
         </form>
     );
 };
-export default FMEditor;
+
+export default ProfileEditor;
 

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import FMViewer from './FMViewer';
-import FMEditor from './FMEditor';
+import FMViewer from './ProfileViewer';
+import FMEditor from './ProfileEditor';
 
-function FMGeneral(props) {
+function ProfileGeneral(props) {
 	const [data, setData] = useState(props.data);
 	const [isViewMode, setIsViewMode] = useState(props.data.id !== -1 ? true : false);
 
 	function handleCancel() {
-		props.onDelete(props.index);
+		if (data.id === -1) {
+			props.onDelete(props.index);
+        }
 		setIsViewMode(true);
 	};
 
@@ -37,4 +39,4 @@ function FMGeneral(props) {
 		);
 	}
 };
-export default FMGeneral;
+export default ProfileGeneral;

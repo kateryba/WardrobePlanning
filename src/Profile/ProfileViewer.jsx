@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import SendingState from '../sdk/SendingState';
+import WardrobeTotal from '../WardrobeTotal';
 
-function FMViewer(props) {
+function ProfileViewer(props) {
 
     const [sendingState, setSendingState] = useState(SendingState.Idle);
 
@@ -35,11 +36,12 @@ function FMViewer(props) {
     console.log(props.data.id);
 
     return (
-        <div className="card">
-                <h2>{props.data.name}  <input type='button' onClick={handleEdit} value="Edit user settings" /></h2>
-                <h5>age:{props.data.age} size:{props.data.size}</h5>
-                <input type='button' value='Delete User Profile' onClick={deleteProfile} />
+        <div class="flex-container, card">
+            <h2>{props.data.name}  <input type='button' onClick={handleEdit} value="Edit" /></h2>
+            <h5>age:{props.data.age} size:{props.data.size}</h5>
+            {/*<WardrobeTotal ownerID={props.data.name}/>*/}
+            <input type='button' value='Delete Family Member' onClick={deleteProfile} />
         </div>
     );
 }
-export default FMViewer;
+export default ProfileViewer;

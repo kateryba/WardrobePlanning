@@ -1,11 +1,11 @@
 import React from 'react';
-import FamilyMembers from './FamilyMembers';
-
+import FMTotal from './FMTotal';
+import WardrobeTotal from './WardrobeTotal';
 
 function App() {
 	return (
 		<div>	
-			<FamilyMembers />
+			<FMTotal />
 		</div>
 	)
 }

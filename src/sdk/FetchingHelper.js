@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import FetchingState from './FetchingState';
 
+// authorship of the code below belongs to Ihor Yalovetskyi, who is not a CS50 course student
+// the code was partially changed (the links) according to my project's needs
+
 class UserDataQueryParams {
     constructor() { }
     get url() { return `https://localhost:44355/family`; }
@@ -13,7 +16,7 @@ class ClothesDataQueryParams {
     get discriminator() { return []; }
 }
 
-class AddClothesParams {
+class ClothesParams {
     constructor() { }
     get url() { return 'https://localhost:44355/settings'; }
     get discriminator() { return []; }
@@ -33,12 +36,12 @@ function useFetch(dataQueryParams, setData) {
     async function loadDataFromServer(queryParams) {
         console.log(`loadDataFromServer(${JSON.stringify(queryParams)})`);
         let url = new URL(queryParams.url);
-        console.log(url);
+        //console.log(url);
 
         let timeout = setTimeout(() => setFetchingState(FetchingState.Loading), 1000)
         try {
             const result = await axios.get(url);
-            console.log(result);
+            //console.log(result);
 
             setData(result.data);
             setFetchingState(FetchingState.Idle);
@@ -55,5 +58,5 @@ function useFetch(dataQueryParams, setData) {
 
 export { UserDataQueryParams };
 export { ClothesDataQueryParams };
-export { AddClothesParams };
+export { ClothesParams };
 export default useFetch;

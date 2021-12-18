@@ -6,13 +6,12 @@
     transition: 0.3s;
     background-color: #61C643;
     border-radius: 5px; /* 5px rounded corners */
-    margin-left: 20px;
-    padding-left: 20px;
-    margin-bottom: 10px;
+    margin-left: 5px;
+    padding-left: 5px;
+    margin-bottom: 5px;
     text-decoration-color: #5700A4;
     font-family: Verdana;
-    color: #5700A4;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
 .cardEditing {
@@ -30,9 +29,6 @@
 }
 
 /* Add some padding inside the card container */
-.container {
-    padding: 2px 16px;
-}
 
 .createProfileButton {
     margin-left: 50px;
@@ -59,12 +55,27 @@ input {
     font-weight: bolder;
 }
 
-header{
-
+.flex-container {
+    display: flex;
+    padding: 2px 16px;
+    background-color: #61C643
 }
 
-footer{
+    .flex-container > div {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        background-color: #E8B058;
+        margin: 3px;
+        padding: 3px;
+        flex-flow: row wrap;
+        border-radius: 5px;
+        font-size:;
+        line-snap: contain;
+        text-decoration-color: #E8B080;
+    }
 
+.flex-container > div:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 body {

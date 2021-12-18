@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import useFetch, { UserDataQueryParams } from './sdk/FetchingHelper';
 import FetchingState from './sdk/FetchingState';
-import FMGeneral from './FamilyMember/FMGeneral';
+import ProfileGeneral from './Profile/ProfileGeneral';
+import WardrobeTotal from './WardrobeTotal';
 
-function FamilyMembers(props) {
+
+function FMTotal(props) {
     const [wardrobeOwners, setWardrobeOwners] = useState([]);
+    const [wardrobeContents, setWardrobeContents] = useState([]);
 
     const fetchingState = useFetch(new UserDataQueryParams(), setWardrobeOwners);
 
@@ -14,14 +17,15 @@ function FamilyMembers(props) {
     if (fetchingState === FetchingState.loading) {
         return <span>loading owners...</span>;
     }
+
+
     function handleCreate() {
         if (wardrobeOwners) {
             let updatedWardrobeOwners = Array.from(wardrobeOwners);
-            // Array.from(wardrobeOwners), wardrobeOwners.slice(), updatedWardrobeOwners);
             updatedWardrobeOwners.push({ id: -1, name: '', age: 0, size: 0 });
             setWardrobeOwners(updatedWardrobeOwners);
         }
-    }
+    };
 
     // TEST UPDATES ON SERVER
 
@@ -35,7 +39,7 @@ function FamilyMembers(props) {
             })
             setWardrobeOwners(updatedWardrobeOwners);
         }
-    }
+    };
 
     function handleProfileDelete(idx) {
         let updatedWardrobeOwners = wardrobeOwners.map((wo, index) => {
@@ -45,14 +49,14 @@ function FamilyMembers(props) {
             return wo;
         });
         setWardrobeOwners(updatedWardrobeOwners);
-    };
+    }; 
   
     if (wardrobeOwners) {
         console.log(wardrobeOwners);
         return (
             <div>
                 <header></header>
-                <div className="container">
+                <div className="flex">
                     {wardrobeOwners.map((wardrobeOwner, index) => {
                         if (wardrobeOwner !== undefined) {
                             return <MemoFMGeneral key={index} data={wardrobeOwner}
@@ -65,18 +69,21 @@ function FamilyMembers(props) {
                     }
                     )}
                     <div>
-                        <input className="createProfileButton" type='button' value='Create Family Member'
+                        <input className="addProfileButton" type='button' value='Add Family Member'
                             onClick={handleCreate}/>
                     </div>
                 </div>
                 <footer></footer>
+                <div className="flex">
+                    <WardrobeTotal listOwners={wardrobeOwners} />
+                </div>
             </div>
         );
     }
-    else { return (<div>NO DATA LOADED</div>); }
+    else { return (<div>NO USERS DATA LOADED</div>); }
 }
 
-const MemoFMGeneral = React.memo(FMGeneral);
+const MemoFMGeneral = React.memo(ProfileGeneral);
 
-export default FamilyMembers;
+export default FMTotal;
 
