@@ -2,9 +2,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import FetchingState from './FetchingState';
 
-// authorship of the code below belongs to Ihor Yalovetskyi, who is not a CS50 course student
-// the code was partially changed (the links) according to my project's needs
-
 class UserDataQueryParams {
     constructor() { }
     get url() { return `https://localhost:44355/family`; }
@@ -41,8 +38,6 @@ function useFetch(dataQueryParams, setData) {
         let timeout = setTimeout(() => setFetchingState(FetchingState.Loading), 1000)
         try {
             const result = await axios.get(url);
-            //console.log(result);
-
             setData(result.data);
             setFetchingState(FetchingState.Idle);
         }

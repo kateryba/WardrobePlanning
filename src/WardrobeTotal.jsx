@@ -5,7 +5,7 @@ import ClothesItemGeneral from './Wardrobe/ClothesItemGeneral';
 
 function WardrobeTotal(props) {
     const [clothes, setClothes] = useState([]);
-    const [ownersList, setOwnersList] = useState(props.listOwners);
+    const [filter, setFilter] = useState();
 
     const fetchingState = useFetch(new ClothesDataQueryParams(), setClothes);
 
@@ -26,12 +26,15 @@ function WardrobeTotal(props) {
         setClothes(updatedClothes);
     };
 
-    function handleCICreate() {
-        if (clothes) {
-            let updatedClothes = Array.from(clothes);
-            updatedClothes.push({ id: -1 });
-            setClothes(updatedClothes);
+    function handleCICreate(CItemUpdate) {
+        let addedNewCI = clothes.map(cloth => {
+            if (cloth?.id === -1) {
+                return CItemUpdate;
+            }
+            return cloth;
         }
+        );
+        setClothes(addedNewCI);
     };
 
     function getCIUpdate(CItemUpdate) {
@@ -46,41 +49,67 @@ function WardrobeTotal(props) {
         }
     };
 
-    let result = clothes;
-    let owners = ownersList;
-
-    function filterClothes(e, clothes) {
-        e.preventDefault();
-        if (e) {
-            //let size = owners.filter(owner => owner.)
-            result = result.filter(ClothesItem => (ClothesItem.owner === e))
+    function handleAddCIPlaceholder() {
+        if (clothes) {
+            let updatedClothes = Array.from(clothes);
+            updatedClothes.push({ id: -1 });
+            setClothes(updatedClothes);
         }
     };
+    
+    function shouldShow(cloth) {
+        if ((filter) && (filter !== 'All')) {
+            if (cloth) {
+                return cloth.owner === filter;
+            }
+        }
+        return true;
+    };
+
+    function ShouldAdd(cloth) {
+        for (let i = cloth.length-1; i >= 0; i--) {
+            if (cloth[i]) {
+                if (cloth[i].id === -1) {
+                    return false;
+                };
+            };
+        }
+        return true;
+    }
 
     if (clothes) {    
         return (
             <div>
-                Select the user:
-                <select onChange={filterClothes}>
-                    {owners.map(owner => <option>{owner.name}</option>)}
-                </select>
+                <div class="flex-container, filter">
+                    Select the user:
+                    <select type='Text' name='selectedOwner' placeholder={filter ? 'All' : filter}
+                        onChange={e => setFilter(e.target.value)} value={filter}>
+                        <option>All</option>
+                        {props.listOwners.map(owner => {
+                            if (owner) {
+                                return (<option>{owner.name}</option>)
+                            }
+                        })
+                        }
+                    </select>
+                </div>
                 <div class="flex-container, card">
+                    <div style={ShouldAdd(clothes) ? {} : { display: "none" }}>
+                        <input style={ShouldAdd(clothes) ? {} : { display: "none" }} className="addClothesButton" type='button' value='Add New Clothes'
+                            onClick={handleAddCIPlaceholder} />
+                    </div>
                     <div class="flex-container">
-                        {result.map((ClothesItem, index) => {
-                            if (ClothesItem !== undefined) {
-                                return <MemoClothesItemGeneral key={index} data={ClothesItem} listOwners={props.listOwners}
+                        {clothes.map((cloth, index) => {
+                            if (cloth !== undefined) {
+                                return <div style={shouldShow(cloth) ? {} : { display: "none" }}><MemoClothesItemGeneral key={index} data={cloth} listOwners={props.listOwners}
                                     onDelete={handleCIDelete}
                                     onCreate={handleCICreate}
                                     onUpdate={getCIUpdate}
                                     index={index}
-                                />;
+                                /></div>;
                             }
                         }
                         )}
-                        <div>
-                            <input className="addClothesButton" type='button' value='Add New Clothes'
-                                onClick={handleCICreate} />
-                        </div> 
                     </div>
                 </div>
             </div>

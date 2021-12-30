@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import SendingState from '../sdk/SendingState';
-import WardrobeTotal from '../WardrobeTotal';
+//import WardrobeTotal from '../WardrobeTotal';
 
 function ProfileViewer(props) {
 

@@ -58,7 +58,8 @@ input {
 .flex-container {
     display: flex;
     padding: 2px 16px;
-    background-color: #61C643
+    background-color: #61C643;
+    flex-flow: row wrap;
 }
 
     .flex-container > div {
@@ -69,13 +70,27 @@ input {
         padding: 3px;
         flex-flow: row wrap;
         border-radius: 5px;
-        font-size:;
         line-snap: contain;
         text-decoration-color: #E8B080;
     }
 
 .flex-container > div:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.filter {
+    background-color: #95C821;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin: 3px;
+    padding: 3px;
+    font-size: 30;
+    text-decoration-style: double;
+    text-decoration-style: bo 
+
+
+.select:hover {
+    box-shadow: 0 10px 18px 0 rgba(0,0,0,0.2);
 }
 
 body {

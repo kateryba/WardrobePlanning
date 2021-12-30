@@ -17,11 +17,16 @@ function ProfileGeneral(props) {
 		setIsViewMode(false);
 	};
 
-	function handleSave(changedData){
+	function handleCreate(changedData){
+		setData(changedData);
+		setIsViewMode(true);
+		props.onCreate(changedData);
+	};
+
+	function handleUpdate(changedData) {
 		setData(changedData);
 		setIsViewMode(true);
 		props.onUpdate(changedData);
-
 	};
 
 	function deleteProfile() {
@@ -35,7 +40,7 @@ function ProfileGeneral(props) {
 	}
 	else {
 		return (
-			<FMEditor data={data} onCancel={handleCancel} onSave={handleSave}/>
+			<FMEditor data={data} onCancel={handleCancel} onUpdate={handleUpdate} onCreate={handleCreate}/>
 		);
 	}
 };
