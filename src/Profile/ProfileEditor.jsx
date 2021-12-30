@@ -5,9 +5,9 @@ import SendingState from '../sdk/SendingState';
 function ProfileEditor(props) {
 
     const [id, setID] = useState(props.data.id);
-    const [name, setName] = useState(props.data.name === '' ? makename(6) : props.data.name);
-    const [age, setAge] = useState(props.data.age === 0 ? 10 : props.data.age);
-    const [size, setSize] = useState(props.data.size === 0 ? 10 : props.data.size);
+    const [name, setName] = useState(props.data.name ?? props.data.name);
+    const [age, setAge] = useState(props.data.age ?? props.data.age);
+    const [size, setSize] = useState(props.data.size ?? props.data.size);
     const [sendingState, setSendingState] = useState(SendingState.Idle);
 
     const sizeList = [50, 56, 62, 68, 74, 80, 86, 92, 98, 104, 5, 6, 7, 8, 10, 12, 14, 16, 0];
@@ -18,13 +18,13 @@ function ProfileEditor(props) {
                 //editing existing
             if (method === 'put') {
                 await axios.put(url, data); // result.status
-                handleSave(data);
+                handleUpdate(data);
             }
                 //adding new user
             else if (method === 'post') {
                 let result = await axios.post(url, data);
                 data.id = result.data;
-                handleSave(data);
+                handleCreate(data);
             }
             setSendingState(SendingState.Idle);
         }
@@ -55,8 +55,12 @@ function ProfileEditor(props) {
         };
     };
 
-    function handleSave(data) {
-        props.onSave(data);
+    function handleUpdate(data) {
+        props.onUpdate(data);
+    }
+
+    function handleCreate(data) {
+        props.onCreate(data);
     }
 
     function handleCancel() {
@@ -88,7 +92,7 @@ function ProfileEditor(props) {
         <form className="flex-container, cardEditing">
             <label>
                 Name:
-                <input type='Text' name='name' placeholder={name === '' ? 'Name' : name}
+                <input type='Text' name='name' placeholder={name === '' ? 'Type name' : name}
                     onChange={e => validateName(e.target.value)} value={name}/>
             </label>
             <br/>

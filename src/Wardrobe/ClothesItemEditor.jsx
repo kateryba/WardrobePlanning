@@ -26,18 +26,18 @@ function ClothesItemEditor(props) {
             //editing existing
             if (method === 'put') {
                 await axios.put(url, data); // result.status
-                handleSave(data);
+                handleUpdate(data);
             }
             //adding new clothes item
             else if (method === 'post') {
                 let result = await axios.post(url, data);
                 data.id = result.data;
-                handleSave(data);
+                handleCreate(data);
             }
             setSendingState(SendingState.Idle);
         }
-        catch (error) {
-            console.log("ERROR DURING SENDING ON SERVER" + JSON.stringify(error));
+        catch (e) {
+            console.log("ERROR DURING SENDING ON SERVER" + JSON.stringify(e));
             setSendingState(SendingState.Error);
         }
         clearTimeout(timeout);
@@ -72,8 +72,12 @@ function ClothesItemEditor(props) {
         };
     };
 
-    function handleSave(data) {
-        props.onSave(data);
+    function handleUpdate(data) {
+        props.onUpdate(data);
+    }
+
+    function handleCreate(data) {
+        props.onCreate(data);
     }
 
     function handleCancel() {
@@ -87,12 +91,13 @@ function ClothesItemEditor(props) {
         setType(type);
     }
     function validateOwner(owner) {
-        for (let i = 0; i < owners.length; i++) {
-            if (owners[i] === owner) {
-                setOwner(owner);
-                break;
-            }
-        }
+        //for (let i = 0; i < owners.length; i++) {
+        //    if (owners[i].name === owner) {
+                
+        //        break;
+        //    }
+        //}
+        setOwner(owner);
     }
     function validateColor(color) {
         setColor(color);
@@ -124,7 +129,12 @@ function ClothesItemEditor(props) {
                 <select name='owner' placeholder={owner === 0 ? 'Owner' : owner}
                     onChange={e => validateOwner(e.target.value)} value={owner}>
                     <option></option>
-                    {owners.map(owner => <option>{owner.name}</option>)}
+                    {owners.map(owner => {
+                        if (owner) {
+                            return (<option>{owner.name}</option>);
+                        }
+                        }
+                    )}
                 </select>
             </label>
             <br />

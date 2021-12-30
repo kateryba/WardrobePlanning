@@ -20,10 +20,17 @@ function ClothesItemGeneral(props) {
 		setIsViewMode(false);
 	};
 
-	function handleSave(changedData) {
+	function handleUpdate(changedData) {
 		setData(changedData);
 		setIsViewMode(true);
 		props.onUpdate(changedData);
+
+	};
+
+	function handleCreate(changedData) {
+		setData(changedData);
+		setIsViewMode(true);
+		props.onCreate(changedData);
 
 	};
 
@@ -38,7 +45,7 @@ function ClothesItemGeneral(props) {
 	}
 	else {
 		return (
-			<ClothesItemEditor data={data} listOwners={props.listOwners} onCancel={handleCancel} onSave={handleSave} />
+			<ClothesItemEditor data={data} listOwners={props.listOwners} onCancel={handleCancel} onUpdate={handleUpdate} onCreate={handleCreate} />
 		);
 	}
 };

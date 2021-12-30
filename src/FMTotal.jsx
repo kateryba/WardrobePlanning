@@ -27,7 +27,17 @@ function FMTotal(props) {
         }
     };
 
-    // TEST UPDATES ON SERVER
+    function handleProfileCreate(profileUpdate) {
+        let addedWardrobeOwners = wardrobeOwners.map(wo => {
+            if (wo) {
+                if (wo.id === -1) {
+                    return profileUpdate;
+                }
+            }
+            return wo;
+        });
+        setWardrobeOwners(addedWardrobeOwners);
+    };
 
     function getDataUpdate(profileUpdate) {
         if (profileUpdate) {
@@ -51,7 +61,7 @@ function FMTotal(props) {
         setWardrobeOwners(updatedWardrobeOwners);
     }; 
   
-    if (wardrobeOwners) {
+    if (wardrobeOwners.length) {
         console.log(wardrobeOwners);
         return (
             <div>
@@ -61,7 +71,7 @@ function FMTotal(props) {
                         if (wardrobeOwner !== undefined) {
                             return <MemoFMGeneral key={index} data={wardrobeOwner}
                                 onDelete={handleProfileDelete}
-                                onCreate={handleCreate}
+                                onCreate={handleProfileCreate}
                                 onUpdate={getDataUpdate}
                                 index={index} 
                             />;

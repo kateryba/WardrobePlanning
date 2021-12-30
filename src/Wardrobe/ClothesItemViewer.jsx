@@ -34,8 +34,17 @@ function ClothesItemViewer(props) {
 
     return (
         <div>
-            <div>type:{props.data.type}  color:{props.data.color}</div>
-            <div>size:{props.data.size} owner:{props.data.owner} season:{props.data.season}</div>
+            <div>color:{props.data.color}
+                <br />
+                type:{props.data.type}
+                <br />
+                size:{props.data.size}
+                <br />
+                owner:{props.data.owner}
+                <br />
+                season:{props.data.season}
+                <ln />
+            </div>
             <input type='button' onClick={handleEdit} value="Edit" />
             <input type='button' value='Delete This Item' onClick={deleteItem} />
         </div>             
